@@ -120,10 +120,12 @@ jQuery(function() {
                 name: $('#name').val(),
                 visibility: $('#visibility').val(),
                 allows_edit: $('#allows_edit').val(),
+                is_template: $('#is_template').is(':checked') ? 1 : 0,
+                template_name: $('#template_name').val(),
                 form_builder_json: formBuilderJSONData,
                 _token: window.FormBuilder.csrfToken
             }
-
+console.log(postData);
             var method = form.data('formMethod') ? 'PUT' : 'POST'
             jQuery.ajax({
                 url: form.attr('action'),

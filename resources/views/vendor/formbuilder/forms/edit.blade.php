@@ -83,6 +83,25 @@
                                     @endif
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="visibility" class="col-form-label">Use as template</label>
+                                    <input type="checkbox" id="is_template" name="is_template" {{ $form->is_template ? 'checked' : '' }}>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="visibility" class="col-form-label">Template name</label>
+                                    <input type="text" id="template_name" name="template_name" value="{{ old('template_name') ?? $form->template_name }}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="visibility" class="col-form-label">Form image</label>
+                                    <input type="file" name="form_image" class="form-control">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">

@@ -26,6 +26,7 @@ Route::group(
 		'as' => 'admin.',
 	],
 	function(){
-		Route::get('/',['as' => 'dashboard','uses' => 'DashboardController@show']);
+		Route::redirect('/', url(config('formbuilder.url_path', '/form-builder').'/forms'));
+		// Route::get('/',['as' => 'dashboard','uses' => 'DashboardController@show']);
 	}
 );

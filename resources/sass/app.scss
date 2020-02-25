@@ -3,6 +3,11 @@
 
 // Variables
 @import 'variables';
+@import 'main';
+@import 'components/header';
+@import 'components/footer';
+
+@import 'components/forms_list';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';
