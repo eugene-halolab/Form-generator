@@ -13,7 +13,7 @@
                     @csrf
                     
                     <div class="card-body">
-                        <div id="fb-render"></div>
+                        <div class="formeo-render"></div>
                     </div>
 
                     <div class="card-footer">

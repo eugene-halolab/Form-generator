@@ -112,6 +112,36 @@ footer .socials img {
   vertical-align: middle;
 }
 
+body .form-wrap.form-builder .frmb-control li {
+  background: #02021e;
+}
+
+body .form-wrap.form-builder .frmb-control li:hover {
+  background: #00006f;
+}
+
+body .form-wrap.form-builder .frmb li {
+  background: #02021e;
+}
+
+body .form-wrap.form-builder .frmb .form-elements {
+  background: #a0a0a0;
+}
+
+body .form-wrap.form-builder .frmb {
+  border: solid 1px #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-wrap.form-builder .frmb {
+  color: #828282;
+}
+
+#createFormForm .formeo-editor {
+  color: #000;
+}
+
 .form_list-body {
   display: -webkit-box;
   display: flex;

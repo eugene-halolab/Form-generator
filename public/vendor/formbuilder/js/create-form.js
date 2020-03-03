@@ -11,62 +11,114 @@ jQuery(function() {
         }
     });
 
-    // create the form editor
-    var fbEditor = $(document.getElementById('fb-editor'))
-    var formBuilder 
-    var fbOptions = {
-        dataType: 'json',
-        formData: window._form_builder_content ? window._form_builder_content : '',
-        controlOrder: [
-            'header',
-            'paragraph',
-            'text',
-            'textarea',
-            'select',
-            'number',
-            'date',
-            'autocomplete',
-            'file',
-        ],
-        disableFields: [
-            'button', // buttons are not needed since we are the one handling the submission
-        ],  // field types that should not be shown
-        disabledAttrs: [
-            // 'access',
-        ],
-        typeUserDisabledAttrs: {
-            'file': [
-                'multiple',
-                'subtype',
-            ],
-            'checkbox-group': [
-                'other',
-            ],
-        },
-        showActionButtons: false, // show the actions buttons at the bottom
-        disabledActionButtons: ['data'], // get rid of the 'getData' button
-        sortableControls: false, // allow users to re-order the controls to their liking
-        editOnAdd: false,
-        fieldRemoveWarn: false,
-        roles: window.FormBuilder.form_roles || {},
-        notify: {
-            error: function(message) {
-              return swal('Error', message, 'error')
+    const controlOptions = {
+        elements: [
+        {
+            tag: 'input',
+            attrs: {
+                required: false,
+                type: 'text',
+                className: '',
+                name:''
             },
-            success: function(message) {
-              return swal('Success', message, 'success')
+            config: {
+                label: 'Input text',
             },
-            warning: function(message) {
-              return swal('Warning', message, 'warning');
-            }
+            meta: {
+                group: 'common',
+                icon: '<svg class="svg-icon f-i-text-input"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#f-i-text-input"></use></svg>',
+                id: 'text-input'
+            },
         },
-        onSave: function() {
-            // var formData = formBuilder.formData
-            // console.log(formData)
+        {
+            tag: 'input',
+            attrs: {
+                required: false,
+                type: 'email',
+                className: '',
+                name:''
+            },
+            config: {
+                label: 'Email',
+            },
+            meta: {
+                group: 'common',
+                icon: '@',
+                id: 'email'
+            },
         },
-    }
+        {
+            tag: 'input',
+            attrs: {
+                required: false,
+                type: 'checkbox',
+                className: '',
+                name:''
+            },
+            config: {
+                label: 'Checkbox Group',
+            },
+            meta: {
+                group: 'common',
+                icon: '<svg class="svg-icon f-i-checkbox"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#f-i-checkbox"></use></svg>',
+                id: 'checkbox'
+            },
+            options: [
+            {label: 'Option 1', value: 'opt1', selected: false, neme:''},
+            {label: 'Option 2', value: 'opt2', selected: false, neme:''},
+            ],
+        },
+        {
+            tag: 'input',
+            attrs: {
+                required: false,
+                type: 'radio',
+                className: '',
+                name:''
+            },
+            config: {
+                label: 'Radio Group',
+            },
+            meta: {
+                group: 'common',
+                icon: '<svg class="svg-icon f-i-radio-group"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#f-i-radio-group"></use></svg>',
+                id: 'radio'
+            },
+            options: [
+            {label: 'Option 1', value: 'opt1', selected: false},
+            {label: 'Option 2', value: 'opt2', selected: false},
+            {label: 'Option 3', value: 'opt3', selected: false},
+            ],
+        }
+        ],
+    };
 
-    formBuilder = fbEditor.formBuilder(fbOptions)
+const defaults_formeo = {
+    editorContainer: '#formeo-editor',
+    svgSprite: 'https://draggable.github.io/formeo/assets/img/formeo-sprite.svg',
+    dataType: 'json',
+    controls: controlOptions,
+    config:{
+        fields:{
+            all:{
+                events:{
+                    onRender: element => {
+                      if($(element).find("#"+element.id+"-attrs-name").val() === ""){
+                          $(element).find("#"+element.id+"-attrs-name").val(element.id);
+                      }
+                  },
+              }
+          }
+      }
+  }
+};
+const formData = window._form_builder_content ? JSON.parse(window._form_builder_content) : {};
+
+var formeo = new FormeoEditor(defaults_formeo, formData);
+
+
+    // ___________-------------------------------
+    // create the form editor
 
     var fbClearBtn = $('.fb-clear-btn')
     var fbShowDataBtn = $('.fb-showdata-btn')
@@ -76,12 +128,13 @@ jQuery(function() {
     fbClearBtn.click(function(e) {
         e.preventDefault()
 
-        if (! formBuilder.actions.getData().length) return 
+        if ($.isEmptyObject(formeo.formData.fields)) return 
+        // if (! formBuilder.actions.getData().length) return 
 
-        sConfirm("Are you sure you want to clear all fields from the form?", function() {
-            formBuilder.actions.clearFields()
-        })
-    });
+    sConfirm("Are you sure you want to clear all fields from the form?", function() {
+        formBuilder.actions.clearFields()
+    })
+});
 
     fbShowDataBtn.click(function(e) {
         e.preventDefault()
@@ -96,23 +149,32 @@ jQuery(function() {
         // make sure the form is valid
         if ( ! form.parsley().validate() ) return 
 
+            if($.isEmptyObject(formeo.formData.fields)){
+                swal({
+                    title: "Error",
+                    text: "The form builder cannot be empty!!!!!",
+                    icon: 'error',
+                })
+                return
+            }
         // make sure the form builder is not empty
-        if (! formBuilder.actions.getData().length) {
-            swal({
-                title: "Error",
-                text: "The form builder cannot be empty",
-                icon: 'error',
-            })
-            return
-        }
+    // if (! formBuilder.actions.getData().length) {
+    //     swal({
+    //         title: "Error",
+    //         text: "The form builder cannot be empty",
+    //         icon: 'error',
+    //     })
+    //     return
+    // }
 
         // ask for confirmation
         sConfirm("Save this form definition?", function() {
             fbSaveBtn.attr('disabled', 'disabled');
             fbClearBtn.attr('disabled', 'disabled');
 
-            var formBuilderJSONData = formBuilder.actions.getData('json')
-            // console.log(formBuilderJSONData)
+            // var formBuilderJSONData = formBuilder.actions.getData('json')
+            var formBuilderJSONData = formeo.json
+            // console.log(formBuilder.actions.getData('json'))
             // var formBuilderArrayData = formBuilder.actions.getData()
             // console.log(formBuilderArrayData)
 
@@ -125,7 +187,7 @@ jQuery(function() {
                 form_builder_json: formBuilderJSONData,
                 _token: window.FormBuilder.csrfToken
             }
-console.log(postData);
+
             var method = form.data('formMethod') ? 'PUT' : 'POST'
             jQuery.ajax({
                 url: form.attr('action'),

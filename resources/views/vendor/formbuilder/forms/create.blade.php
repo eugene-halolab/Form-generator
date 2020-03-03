@@ -78,7 +78,8 @@
                                     Click on or drag and drop components onto the main panel to build your form content.
                                 </div>
 
-                                <div id="fb-editor" class="fb-editor"></div>
+                                <!-- <div id="fb-editor" class="fb-editor"></div> -->
+                                <div id="formeo-editor"></div>
                             </div>
                         </div>
                     </div>

@@ -20,12 +20,15 @@
 				</a>
 				<a href="{{ route('formbuilder::forms.show', $form) }}" class="btn btn-primary btn-sm" title="Preview form '{{ $form->name }}'">
 					<i class="fa fa-eye"></i> 
+					Show
 				</a> 
 				<a href="{{ route('formbuilder::forms.edit', $form) }}" class="btn btn-primary btn-sm" title="Edit form">
 					<i class="fa fa-pencil"></i> 
+					Edit
 				</a> 
 				<button class="btn btn-primary btn-sm clipboard" data-clipboard-text="{{ route('formbuilder::form.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
 					<i class="fa fa-clipboard"></i> 
+					Copy
 				</button> 
 
 				<form action="{{ route('formbuilder::forms.destroy', $form) }}" method="POST" id="deleteFormForm_{{ $form->id }}" class="d-inline-block">
@@ -34,6 +37,7 @@
 
 					<button type="submit" class="btn btn-danger btn-sm confirm-form" data-form="deleteFormForm_{{ $form->id }}" data-message="Delete form '{{ $form->name }}'?" title="Delete form '{{ $form->name }}'">
 						<i class="fa fa-trash-o"></i> 
+						Delete
 					</button>
 				</form>
 			</div>

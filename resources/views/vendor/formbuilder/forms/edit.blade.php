@@ -96,12 +96,6 @@
                                     <input type="text" id="template_name" name="template_name" value="{{ old('template_name') ?? $form->template_name }}">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="visibility" class="col-form-label">Form image</label>
-                                    <input type="file" name="form_image" class="form-control">
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row">
@@ -111,13 +105,15 @@
                                     Click on or Drag and drop components onto the main panel to build your form content.
                                 </div>
 
-                                <div id="fb-editor" class="fb-editor"></div>
+                                <!-- <div id="fb-editor" class="fb-editor"></div> -->
+                                <div id="formeo-editor"></div>
                             </div>
                         </div>
                     </div>
                 </form>
 
-                <div class="card-footer" id="fb-editor-footer" style="display: none;">
+                <div class="card-footer" id="fb-editor-footer">
+                <!-- <div class="card-footer" id="fb-editor-footer" style="display: none;"> -->
                     <button type="button" class="btn btn-primary fb-clear-btn">
                         <i class="fa fa-remove"></i> Clear Form 
                     </button> 

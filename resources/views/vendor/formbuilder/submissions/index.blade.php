@@ -29,6 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach($submissions as $submission)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
