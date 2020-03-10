@@ -29,12 +29,14 @@
 
                 <ul class="list-group list-group-flush">
                     @foreach($form_headers as $header)
-                        <li class="list-group-item">
-                            <strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong> 
-                            <span class="float-right">
-                                {{ $submission->renderEntryContent($header['name'], $header['type']) }}
-                            </span>
-                        </li>
+                        @if($header['name'])
+                            <li class="list-group-item">
+                                <strong>{{ $header['label'] ?? $header['name'] }}: </strong> 
+                                <span class="float-right">
+                                    {{ $submission->renderEntryContent($header['name'], $header['type']) }}
+                                </span>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
             </div>

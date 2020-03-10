@@ -23,7 +23,7 @@
                                     <th class="five">#</th>
                                     <!-- <th class="fifteen">User Name</th> -->
                                     @foreach($form_headers as $header)
-                                        <th>{{ $header['label'] ?? title_case($header['name']) }}</th>
+                                        <th>{{ $header['label'] ?? $header['name'] }}</th>
                                     @endforeach
                                     <th class="fifteen">Actions</th>
                                 </tr>
